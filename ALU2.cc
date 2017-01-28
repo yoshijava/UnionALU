@@ -25,7 +25,8 @@ int ALU2::sub(int x, int y) {
         float floatX = *reinterpret_cast<float*>(&x);
         float floatY = *reinterpret_cast<float*>(&y);
         float floatResult = floatX - floatY;
-        result = *reinterpret_cast<int*>(&floatResult);    }
+        result = *reinterpret_cast<int*>(&floatResult);
+    }
     else {
         result = x - y;
     }
