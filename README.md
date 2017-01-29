@@ -2,7 +2,11 @@
 An example of using union to calculate int or float types.
 
 # Compile
-g++ *.cc -o ALU -std=c++11
+union version:
+g++ union/*.cc -o ALU -std=c++11
+
+reinterpret_cast version
+g++ reinterpret_cast/*.cc -o ALU2 -std=c++11
 
 # Usage
 Usage: ALU [-f|-i] input1 input2
