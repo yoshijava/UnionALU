@@ -96,13 +96,14 @@ int main(int argc, char *argv[]) {
 
     int addResult = 0, subResult = 0, mulResult = 0, divResult = 0;
 
+    addResult = alu.add(x, y);
+    subResult = alu.sub(x, y);
+    mulResult = alu.mul(x, y);
+    divResult = alu.div(x, y);
+
     switch(alu.mode) {
         case ALU2::FLOAT:
             cout << "Mode = FLOAT" << endl;
-            addResult = alu.add(x, y);
-            subResult = alu.sub(x, y);
-            mulResult = alu.mul(x, y);
-            divResult = alu.div(x, y);
             cout << "Add: " << *reinterpret_cast<float*>(&addResult) << endl;
             cout << "Sub: " << *reinterpret_cast<float*>(&subResult) << endl;
             cout << "Mul: " << *reinterpret_cast<float*>(&mulResult) << endl;
@@ -111,10 +112,6 @@ int main(int argc, char *argv[]) {
         case ALU2::INT:
         default:
             cout << "Mode = INT" << endl;
-            addResult = alu.add(x, y);
-            subResult = alu.sub(x, y);
-            mulResult = alu.mul(x, y);
-            divResult = alu.div(x, y);
             cout << "Add: " << addResult << endl;
             cout << "Add: " << subResult << endl;
             cout << "Add: " << mulResult << endl;
