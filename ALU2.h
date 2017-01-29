@@ -11,6 +11,8 @@ public:
     int mul(int i, int j);
     int div(int i, int j);
 
+    float asFloat(int i);
+    int asInt(float i);
 };
 
 #endif

@@ -5,13 +5,19 @@
 using namespace boost::algorithm;
 using namespace std;
 
+float ALU2::asFloat(int i) {
+    return *reinterpret_cast<float*>(&i);
+}
+
+int ALU2::asInt(float i) {
+    return *reinterpret_cast<int*>(&i);
+}
+
 int ALU2::add(int x, int y) {
     int result;
     if(mode == FLOAT) {
-        float floatX = *reinterpret_cast<float*>(&x);
-        float floatY = *reinterpret_cast<float*>(&y);
-        float floatResult = floatX + floatY;
-        result = *reinterpret_cast<int*>(&floatResult);
+        float floatResult = asFloat(x) + asFloat(y);
+        result = asInt(floatResult);
     }
     else {
         result = x + y;
@@ -22,10 +28,8 @@ int ALU2::add(int x, int y) {
 int ALU2::sub(int x, int y) {
     int result;
     if(mode == FLOAT) {
-        float floatX = *reinterpret_cast<float*>(&x);
-        float floatY = *reinterpret_cast<float*>(&y);
-        float floatResult = floatX - floatY;
-        result = *reinterpret_cast<int*>(&floatResult);
+        float floatResult = asFloat(x) - asFloat(y);
+        result = asInt(floatResult);
     }
     else {
         result = x - y;
@@ -36,10 +40,8 @@ int ALU2::sub(int x, int y) {
 int ALU2::mul(int x, int y) {
     int result;
     if(mode == FLOAT) {
-        float floatX = *reinterpret_cast<float*>(&x);
-        float floatY = *reinterpret_cast<float*>(&y);
-        float floatResult = floatX * floatY;
-        result = *reinterpret_cast<int*>(&floatResult);
+        float floatResult = asFloat(x) * asFloat(y);
+        result = asInt(floatResult);
     }
     else {
         result = x * y;
@@ -50,10 +52,8 @@ int ALU2::mul(int x, int y) {
 int ALU2::div(int x, int y) {
     int result;
     if(mode == FLOAT) {
-        float floatX = *reinterpret_cast<float*>(&x);
-        float floatY = *reinterpret_cast<float*>(&y);
-        float floatResult = floatX / floatY;
-        result = *reinterpret_cast<int*>(&floatResult);
+        float floatResult = asFloat(x) / asFloat(y);
+        result = asInt(floatResult);
     }
     else {
         result = x / y;
@@ -86,8 +86,8 @@ int main(int argc, char *argv[]) {
     if(alu.mode == ALU2::FLOAT) {
         float floatX = atof(argv[2]);
         float floatY = atof(argv[3]);
-        x = *reinterpret_cast<int*>(&floatX);
-        y = *reinterpret_cast<int*>(&floatY);
+        x = alu.asInt(floatX);
+        y = alu.asInt(floatY);
     }
     else {
         x = atoi(argv[2]);
@@ -104,10 +104,10 @@ int main(int argc, char *argv[]) {
     switch(alu.mode) {
         case ALU2::FLOAT:
             cout << "Mode = FLOAT" << endl;
-            cout << "Add: " << *reinterpret_cast<float*>(&addResult) << endl;
-            cout << "Sub: " << *reinterpret_cast<float*>(&subResult) << endl;
-            cout << "Mul: " << *reinterpret_cast<float*>(&mulResult) << endl;
-            cout << "Div: " << *reinterpret_cast<float*>(&divResult) << endl;
+            cout << "Add: " << alu.asFloat(addResult) << endl;
+            cout << "Sub: " << alu.asFloat(subResult) << endl;
+            cout << "Mul: " << alu.asFloat(mulResult) << endl;
+            cout << "Div: " << alu.asFloat(divResult) << endl;
             break;
         case ALU2::INT:
         default:
